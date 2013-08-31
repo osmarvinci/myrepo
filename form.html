@@ -1,0 +1,64 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<script>
+$(document).ready(function(){
+$('#myForm').on('submit',function(e) {
+console.log("1");
+$.ajax({
+
+url:'/email',
+data:$(this).serialize(),
+type:'POST',
+success:function(data){
+console.log(data);
+$("#success").show().fadeOut(5000) //=== Show Success Message==
+.append("and " + data);
+},
+error:function(data){
+$("#error").show().fadeOut(5000); //===Show Error Message====
+console.log(data);
+}
+});
+e.preventDefault(); //=== To Avoid Page Refresh and Fire the Event "Click"===
+});
+});
+
+</script>
+</head>
+
+
+<body>
+<form class="form2" action="" method="POST" name="myForm" id="myForm">
+<div class="formtitle">Contact Us</div>
+<div class="input">
+<div class="inputtext">Your Name: </div>
+<div class="inputcontent">
+<input type="text" name="name" id="name" />
+</div>
+</div>
+<div class="input">
+<div class="inputtext">Your Surname: </div>
+<div class="inputcontent">
+<input type="text" name="surname" id="surname" />
+</div>
+</div>
+<div class="input">
+<div class="inputtext">Your Email: </div>
+<div class="inputcontent">
+<input type="text" name="email" id="email" />
+</div>
+</div>
+<div class="inputtextbox nobottomborder">
+<div class="inputtext">About: </div>
+<div class="inputcontent">
+<textarea class="textarea" name="about" id="about"></textarea>
+</div>
+</div>
+<div class="buttons"> <span id="error" style="display:none; color:#F00">Some Error!Please Fill form Properly </span> <span id="success" style="display:none; color:#0C0">All the records are submitted!</span>
+<input class="greybutton" type="submit" value="Send" />
+</div>
+</form>
+</body>
+</html>
