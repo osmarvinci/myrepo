@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+console.log("About to route a request for grader");
+var gdr = require('./grader.js');
+var program = require ('commander');
+/*Console.log("importado");
+console.log(gdr.checkHtmlFile("index.html","checks.json"));
+*/
+
+program
+.option('-u --url', 'URL as parameter')
+.option('-f --file', 'File as parameter')
+.option('-c --checks', 'Check as parameter')
+.parse(process.argv);
+
+console.log('You requested the checks with ');
+if (program.url) console.log ('URL %s', program.url);
+if (program.file) console.log (' file %s', program.file);
