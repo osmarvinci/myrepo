@@ -12,10 +12,16 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 8080);
 
+app.configure(function() {
+  console.log("Configuring");
+  app.use(express.bodyParser());
+});
+
 // Render homepage (note trailing slash): example.com/
 app.get('/', function(request, response) {
   var data = fs.readFileSync('index.html').toString();
   response.send(data);
+
 });
 
 // Render example.com/orders
@@ -31,6 +37,15 @@ app.get('/orders', function(request, response) {
     console.log(err);
     response.send("error retrieving orders");
   });
+});
+//URL e-mail
+app.post('/email',function(request,response){
+
+console.log(request.body.email);
+fs.appendFile('contacts.txt', request.body.email + '\n', function (err) {
+});
+response.send(request.body.email);
+
 });
 
 // Hit this URL while on example.com/orders to refresh
